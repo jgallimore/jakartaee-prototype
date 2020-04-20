@@ -74,6 +74,32 @@ publishing {
 	  artifactId = 'transformer'
 	  from components.java
 
+    versionMapping {
+      usage('java-api') {
+        fromResolutionOf('runtimeClasspath')
+      }
+      usage('java-runtime') {
+        fromResolutionResult()
+      }
+    }
+
+		pom {
+			name = 'Eclipse Jakarta EE Transformer'
+			description = 'A library to perform the transformation from javax to jakarta'
+			url = 'http://github.com/tbitonti/jakartaee-prototype'
+			licenses {
+				license {
+					name = 'The Apache License, Version 2.0'
+					url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+				}
+			}
+			scm {
+				connection = 'scm:git:git@github.com:tbitonti/jakartaee-prototype.git'
+				developerConnection = 'scm:git:git@github.com:tbitonti/jakartaee-prototype.git'
+				url = 'http://github.com/tbitonti/jakartaee-prototype'
+			}
+		}
 	}
   }
 }
+

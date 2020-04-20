@@ -1,0 +1,64 @@
+plugins {
+  id 'java-library'
+  id 'eclipse'
+  id 'maven-publish'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+group = 'org.eclipse.transformer'
+version = '0.1.0-SNAPSHOT'
+
+configurations {
+  archive.extendsFrom(implementation)
+  archive.extendsFrom(runtimeOnly)
+  archive.extendsFrom(testImplementation)
+}
+
+dependencies {
+  compile project(':transformer')
+  implementation 'org.apache.maven:maven-plugin-api:2.0'
+  implementation 'org.apache.maven.plugin-tools:maven-plugin-annotations:3.3'
+  implementation 'org.codehaus.plexus:plexus-utils:3.0.17'
+  implementation 'org.apache.maven:maven-plugin-api:2.2.1'
+  implementation 'org.apache.maven:maven-project:2.2.1'
+  implementation 'org.apache.maven:maven-core:2.2.1'
+  implementation 'org.apache.maven:maven-artifact:2.2.1'
+  implementation 'commons-cli:commons-cli:1.4'
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      artifactId = 'transformer-maven-plugin'
+      from components.java
+
+      versionMapping {
+        usage('java-api') {
+          fromResolutionOf('runtimeClasspath')
+        }
+        usage('java-runtime') {
+          fromResolutionResult()
+        }
+      }
+
+      pom {
+        name = 'Eclipse Jakarta EE Transformer Maven Plugin'
+        description = 'A library to perform the transformation from javax to jakarta for Maven projects'
+        url = 'http://github.com/tbitonti/jakartaee-prototype'
+        licenses {
+          license {
+            name = 'The Apache License, Version 2.0'
+            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+        scm {
+          connection = 'scm:git:git@github.com:tbitonti/jakartaee-prototype.git'
+          developerConnection = 'scm:git:git@github.com:tbitonti/jakartaee-prototype.git'
+          url = 'http://github.com/tbitonti/jakartaee-prototype'
+        }
+      }
+    }
+  }
+}
+
