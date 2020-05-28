@@ -4,6 +4,7 @@ subprojects {
     maven {
       url uri('https://bndtools.jfrog.io/bndtools/libs-snapshot-local')
     }
+
   }
 }
 
